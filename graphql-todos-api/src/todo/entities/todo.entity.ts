@@ -2,9 +2,10 @@ import { Field } from '@nestjs/graphql';
 import {
   Column,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
-  ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TodoState } from '../enums/todoState.enum';
@@ -32,10 +33,11 @@ export class Todo {
   @Field(() => String)
   createdAt: Date;
 
-  @ManyToOne(() => Account, (account) => account.todosCreators)
+  @OneToOne(() => Account)
+  @JoinColumn()
   createdBy: Account;
 
-  @ManyToMany(() => Account, (account) => account.todosUpdaters)
+  @ManyToMany(() => Account)
   @JoinTable()
-  lastUpdated: Account[];
+  todoUpdaters: Account[];
 }

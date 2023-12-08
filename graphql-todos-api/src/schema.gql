@@ -2,6 +2,45 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Account {
+  id: String!
+  name: String!
+  lastname: String!
+  email: String!
+  password: String!
+  roles: [ValidRoles!]!
+  isActive: Boolean!
+}
+
+enum ValidRoles {
+  admin
+  user
+  superuser
+}
+
+type AccountAuthenticatedResponse {
+  token: String!
+  account: Account!
+}
+
 type Query {
-  findMany: String!
+  account(id: ID!): Account!
+}
+
+type Mutation {
+  login(loginInputs: LoginDto!): AccountAuthenticatedResponse!
+  register(registerInputs: CreateAccount!): AccountAuthenticatedResponse!
+}
+
+input LoginDto {
+  email: String!
+  password: String!
+}
+
+input CreateAccount {
+  name: String!
+  lastname: String!
+  email: String!
+  password: String!
+  roles: [ValidRoles!]! = [user]
 }

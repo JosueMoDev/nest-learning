@@ -1,49 +1,48 @@
-import { Field } from '@nestjs/graphql';
-import { Todo } from 'src/todo/entities/todo.entity';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { ValidRoles } from 'src/authentication/enums/valid-roles.enum';
 import {
   Column,
   Entity,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
-  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
+@ObjectType()
 export class Account {
-  @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
   @Field(() => String)
+  @Column()
   name: string;
 
-  @Column()
   @Field(() => String)
+  @Column()
   lastname: string;
 
   @Column({ unique: true })
   @Field(() => String)
   email: string;
 
+  @Field(() => String)
   @Column()
   password: string;
 
+  @Field(() => [ValidRoles])
   @Column({
     type: 'text',
     array: true,
   })
-  @Field(() => [String])
-  roles: string[];
+  roles: ValidRoles[];
 
+  @Field(() => Boolean)
   @Column({
     type: 'boolean',
     default: true,
   })
-  @Field(() => Boolean)
   isActive: boolean;
 
   //? Relations For Account
@@ -52,12 +51,4 @@ export class Account {
 
   @ManyToOne(() => Account, (account) => account)
   updatedBy: Account[];
-
-  // ? Relations For Todos
-  @OneToMany(() => Todo, (todo) => todo.createdBy)
-  todosCreators: Todo[];
-
-  @ManyToMany(() => Todo, (todo) => todo.lastUpdated)
-  @JoinTable()
-  todosUpdaters: Todo[];
 }
