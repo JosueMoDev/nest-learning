@@ -31,12 +31,9 @@ export class Account {
   @Column()
   password: string;
 
-  @Field(() => [ValidRoles])
-  @Column({
-    type: 'text',
-    array: true,
-  })
-  roles: ValidRoles[];
+  @Field(() => ValidRoles)
+  @Column()
+  roles: ValidRoles;
 
   @Field(() => Boolean)
   @Column({

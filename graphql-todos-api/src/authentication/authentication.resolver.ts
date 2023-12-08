@@ -4,7 +4,7 @@ import { LoginDto } from './dtos/login.dto';
 import { AccountAuthenticatedResponse } from './types/accountAuthenticatedResponse.type';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 
-@Resolver(() => AccountAuthenticatedResponse)
+@Resolver()
 export class AuthenticationResolver {
   constructor(private readonly authenticationService: AuthenticationService) {}
 

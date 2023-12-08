@@ -3,6 +3,7 @@ import { CreateAccount, UpdateAccount } from './dto';
 import { Account } from './entity/account.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AccountsService {
@@ -37,7 +38,9 @@ export class AccountsService {
   public async create(dto: CreateAccount): Promise<Account> {
     try {
       const newAccount = this.accountRespository.create(dto);
-      return await this.accountRespository.save(newAccount);
+      newAccount.password = bcrypt.hashSync(dto.password, 10);
+      const accountSaved = await this.accountRespository.save(newAccount);
+      return accountSaved;
     } catch (error) {
       throw new Error(`${error}`);
     }

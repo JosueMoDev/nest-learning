@@ -8,7 +8,7 @@ type Account {
   lastname: String!
   email: String!
   password: String!
-  roles: [ValidRoles!]!
+  roles: ValidRoles!
   isActive: Boolean!
 }
 
@@ -25,6 +25,7 @@ type AccountAuthenticatedResponse {
 
 type Query {
   account(id: ID!): Account!
+  FindById(id: ID!): Account!
 }
 
 type Mutation {
@@ -42,5 +43,5 @@ input CreateAccount {
   lastname: String!
   email: String!
   password: String!
-  roles: [ValidRoles!]! = [user]
+  roles: ValidRoles = user
 }

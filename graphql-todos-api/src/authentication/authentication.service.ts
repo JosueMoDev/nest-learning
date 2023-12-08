@@ -3,12 +3,14 @@ import {
   Injectable,
   InternalServerErrorException,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { AccountAuthenticatedResponse } from './types/accountAuthenticatedResponse.type';
 import { AccountsService } from 'src/accounts/accounts.service';
 import { LoginDto } from './dtos/login.dto';
 import * as bcrypt from 'bcrypt';
 import { CreateAccount } from 'src/accounts/dto';
+import { Account } from 'src/accounts/entity/account.entity';
 @Injectable()
 export class AuthenticationService {
   constructor(private readonly accountService: AccountsService) {}
@@ -32,5 +34,12 @@ export class AuthenticationService {
 
   refreshToken(): any {
     throw 'no implemented';
+  }
+
+  async validate(id: string): Promise<Account> {
+    const account = await this.accountService.findOneById(id);
+    if (!account.isActive) throw new UnauthorizedException('Account Inactive');
+    delete account.password;
+    return account;
   }
 }

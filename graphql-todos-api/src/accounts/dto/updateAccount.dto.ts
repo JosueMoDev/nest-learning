@@ -49,10 +49,9 @@ export class UpdateAccount {
   password?: string;
 
   @IsOptional()
-  @IsArray()
   @IsEnum(ValidRoles)
-  @Field(() => [ValidRoles])
-  roles?: ValidRoles[];
+  @Field(() => ValidRoles)
+  roles?: ValidRoles;
 
   @IsOptional()
   @IsBoolean()

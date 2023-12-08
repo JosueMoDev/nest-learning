@@ -42,8 +42,10 @@ export class CreateAccount {
   password: string;
 
   @IsOptional()
-  @IsArray()
   @IsEnum(ValidRoles)
-  @Field(() => [ValidRoles], { defaultValue: [ValidRoles.user] })
-  roles?: ValidRoles[];
+  @Field(() => ValidRoles, {
+    defaultValue: ValidRoles.user,
+    nullable: true,
+  })
+  roles?: ValidRoles;
 }
