@@ -3,19 +3,13 @@
 # ------------------------------------------------------
 
 type Account {
-  id: String!
+  id: ID!
   name: String!
   lastname: String!
   email: String!
   password: String!
-  roles: ValidRoles!
+  role: String!
   isActive: Boolean!
-}
-
-enum ValidRoles {
-  admin
-  user
-  superuser
 }
 
 type AccountAuthenticatedResponse {
@@ -24,7 +18,6 @@ type AccountAuthenticatedResponse {
 }
 
 type Query {
-  account(id: ID!): Account!
   FindById(id: ID!): Account!
 }
 
@@ -43,5 +36,11 @@ input CreateAccount {
   lastname: String!
   email: String!
   password: String!
-  roles: ValidRoles = user
+  role: ValidRoles = user
+}
+
+enum ValidRoles {
+  admin
+  user
+  superuser
 }

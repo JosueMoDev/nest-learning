@@ -1,6 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
 import {
-  IsArray,
   IsEmail,
   IsEnum,
   IsNotEmpty,
@@ -47,5 +46,5 @@ export class CreateAccount {
     defaultValue: ValidRoles.user,
     nullable: true,
   })
-  roles?: ValidRoles;
+  role?: ValidRoles;
 }

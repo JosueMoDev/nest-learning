@@ -11,25 +11,37 @@ import { LoginDto } from './dtos/login.dto';
 import * as bcrypt from 'bcrypt';
 import { CreateAccount } from 'src/accounts/dto';
 import { Account } from 'src/accounts/entity/account.entity';
+import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthenticationService {
-  constructor(private readonly accountService: AccountsService) {}
+  constructor(
+    private readonly accountService: AccountsService,
+    private readonly jwtService: JwtService,
+  ) {}
+
+  private generateToken(id: string) {
+    return this.jwtService.sign({ id });
+  }
 
   async login(dto: LoginDto): Promise<AccountAuthenticatedResponse> {
     const account = await this.accountService.findAccountByEmail(dto.email);
     if (!account) throw new NotFoundException('No account found');
     if (!bcrypt.compareSync(dto.password, account.password))
       throw new BadRequestException('Incorrect credentials');
+
+    const token = this.generateToken(account.id);
     return {
       account: account,
-      token: '',
+      token: token,
     };
   }
 
   async register(dto: CreateAccount): Promise<AccountAuthenticatedResponse> {
     const account = await this.accountService.create(dto);
     if (!account) throw new InternalServerErrorException('Something happend');
-    return { account: account, token: '' };
+    const token = this.generateToken(account.id);
+
+    return { account: account, token: token };
   }
 
   refreshToken(): any {

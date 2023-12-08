@@ -1,51 +1,44 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import { ValidRoles } from 'src/authentication/enums/valid-roles.enum';
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'accounts' })
 @ObjectType()
 export class Account {
-  @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
+  @Field(() => ID)
   id: string;
 
-  @Field(() => String)
   @Column()
+  @Field(() => String)
   name: string;
 
-  @Field(() => String)
   @Column()
+  @Field(() => String)
   lastname: string;
 
   @Column({ unique: true })
   @Field(() => String)
   email: string;
 
-  @Field(() => String)
   @Column()
+  @Field(() => String)
   password: string;
 
-  @Field(() => ValidRoles)
   @Column()
-  roles: ValidRoles;
+  @Field(() => String)
+  role: string;
 
-  @Field(() => Boolean)
   @Column({
     type: 'boolean',
     default: true,
   })
+  @Field(() => Boolean)
   isActive: boolean;
 
-  //? Relations For Account
-  @OneToOne(() => Account)
-  createdBy: Account;
+  // //? Relations For Account
+  // @OneToOne(() => Account)
+  // createdBy: Account;
 
-  @ManyToOne(() => Account, (account) => account)
-  updatedBy: Account[];
+  // @ManyToOne(() => Account, (account) => account)
+  // updatedBy: Account[];
 }

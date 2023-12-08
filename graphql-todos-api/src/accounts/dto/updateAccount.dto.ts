@@ -51,7 +51,7 @@ export class UpdateAccount {
   @IsOptional()
   @IsEnum(ValidRoles)
   @Field(() => ValidRoles)
-  roles?: ValidRoles;
+  role?: string;
 
   @IsOptional()
   @IsBoolean()

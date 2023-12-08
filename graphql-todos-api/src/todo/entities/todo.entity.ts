@@ -1,15 +1,5 @@
 import { Field } from '@nestjs/graphql';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { TodoState } from '../enums/todoState.enum';
-import { Account } from 'src/accounts/entity/account.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Todo {
@@ -26,18 +16,18 @@ export class Todo {
   description: string;
 
   @Column()
-  @Field(() => TodoState)
-  state: TodoState;
+  @Field(() => String)
+  state: string;
 
   @Column()
   @Field(() => String)
-  createdAt: Date;
+  createdAt: string;
 
-  @OneToOne(() => Account)
-  @JoinColumn()
-  createdBy: Account;
+  // @OneToOne(() => Account)
+  // @JoinColumn()
+  // createdBy: Account;
 
-  @ManyToMany(() => Account)
-  @JoinTable()
-  todoUpdaters: Account[];
+  // @ManyToMany(() => Account)
+  // @JoinTable()
+  // todoUpdaters: Account[];
 }

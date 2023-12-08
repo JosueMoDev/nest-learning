@@ -58,7 +58,7 @@ export class AccountsService {
     throw 'Not implemented';
   }
 
-  public async delete(id: string): Promise<any> {
+  public async delete(): Promise<any> {
     throw 'not implemented';
   }
 }
