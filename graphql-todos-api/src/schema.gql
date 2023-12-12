@@ -8,7 +8,7 @@ type Todo {
   description: String!
   state: String!
   createdAt: String!
-  account: [Account!]!
+  account: Account!
 }
 
 type Account {
@@ -37,6 +37,9 @@ type Query {
 type Mutation {
   login(loginInputs: LoginDto!): AccountAuthenticatedResponse!
   register(registerInputs: CreateAccount!): AccountAuthenticatedResponse!
+  updateAccount(updateDto: UpdateAccount!): Account!
+  switchAccountActivation(updateDto: UpdateAccount!): Account!
+  createTodo(todoDto: CreateTodo!): Todo!
 }
 
 input LoginDto {
@@ -56,4 +59,19 @@ enum ValidRole {
   admin
   user
   superuser
+}
+
+input UpdateAccount {
+  id: ID!
+  name: String!
+  lastname: String!
+  email: String!
+  password: String!
+  role: ValidRole!
+  isActive: Boolean!
+}
+
+input CreateTodo {
+  title: String!
+  description: String!
 }

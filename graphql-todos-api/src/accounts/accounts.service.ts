@@ -54,11 +54,14 @@ export class AccountsService {
     }
   }
 
-  public async accountStatus(): Promise<any> {
-    throw 'Not implemented';
-  }
-
-  public async delete(): Promise<any> {
-    throw 'not implemented';
+  public async accountStatus(dto: UpdateAccount): Promise<void> {
+    try {
+      const account = await this.findOneById(dto.id);
+      account.isActive = !account.isActive;
+      const accountStatus = await this.accountRespository.preload(account);
+      this.accountRespository.save(accountStatus);
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   }
 }

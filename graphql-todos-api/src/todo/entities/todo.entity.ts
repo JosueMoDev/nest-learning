@@ -7,6 +7,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { TodoState } from '../enums/todoState.enum';
 
 @Entity({ name: 'todos ' })
 @ObjectType()
@@ -23,11 +24,17 @@ export class Todo {
   @Field(() => String)
   description: string;
 
-  @Column()
+  @Column({
+    type: 'text',
+    default: TodoState.pending,
+  })
   @Field(() => String)
   state: string;
 
-  @Column()
+  @Column({
+    type: 'text',
+    default: new Date().toDateString(),
+  })
   @Field(() => String)
   createdAt: string;
 
@@ -36,6 +43,6 @@ export class Todo {
     lazy: true,
   })
   @Index('account-index')
-  @Field(() => [Account])
-  account: Account[];
+  @Field(() => Account)
+  account: Account;
 }
