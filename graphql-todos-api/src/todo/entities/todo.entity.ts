@@ -1,10 +1,18 @@
-import { Field } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Account } from 'src/accounts/entity/account.entity';
+import {
+  Column,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
-@Entity()
+@Entity({ name: 'todos ' })
+@ObjectType()
 export class Todo {
   @PrimaryGeneratedColumn('uuid')
-  @Field(() => String)
+  @Field(() => ID)
   id: string;
 
   @Column()
@@ -23,11 +31,11 @@ export class Todo {
   @Field(() => String)
   createdAt: string;
 
-  // @OneToOne(() => Account)
-  // @JoinColumn()
-  // createdBy: Account;
-
-  // @ManyToMany(() => Account)
-  // @JoinTable()
-  // todoUpdaters: Account[];
+  @ManyToOne(() => Account, (account) => account.todos, {
+    nullable: false,
+    lazy: true,
+  })
+  @Index('account-index')
+  @Field(() => [Account])
+  account: Account[];
 }

@@ -1,5 +1,13 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Todo } from 'src/todo/entities/todo.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'accounts' })
 @ObjectType()
@@ -36,9 +44,15 @@ export class Account {
   isActive: boolean;
 
   // //? Relations For Account
-  // @OneToOne(() => Account)
-  // createdBy: Account;
+  @ManyToOne(() => Account, (account) => account.lastUpdatedBy, {
+    nullable: true,
+    lazy: true,
+  })
+  @JoinColumn({ name: 'lastUpdatedBy' })
+  @Field(() => Account, { nullable: true })
+  lastUpdatedBy?: Account;
 
-  // @ManyToOne(() => Account, (account) => account)
-  // updatedBy: Account[];
+  @OneToMany(() => Todo, (todo) => todo.account, { lazy: true })
+  @Field(() => [Todo])
+  todos: Todo[];
 }

@@ -2,6 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Todo {
+  id: ID!
+  title: String!
+  description: String!
+  state: String!
+  createdAt: String!
+  account: [Account!]!
+}
+
 type Account {
   id: ID!
   name: String!
@@ -10,6 +19,8 @@ type Account {
   password: String!
   role: String!
   isActive: Boolean!
+  lastUpdatedBy: Account
+  todos: [Todo!]!
 }
 
 type AccountAuthenticatedResponse {
@@ -18,7 +29,9 @@ type AccountAuthenticatedResponse {
 }
 
 type Query {
-  FindById(id: ID!): Account!
+  findOneById(id: ID!): Account!
+  findOneBy(id: ID!): Todo!
+  findMany: [Todo!]!
 }
 
 type Mutation {
@@ -36,10 +49,10 @@ input CreateAccount {
   lastname: String!
   email: String!
   password: String!
-  role: ValidRoles = user
+  role: ValidRole = user
 }
 
-enum ValidRoles {
+enum ValidRole {
   admin
   user
   superuser

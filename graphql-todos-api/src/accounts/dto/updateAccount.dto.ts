@@ -1,6 +1,5 @@
 import { Field, ID, InputType } from '@nestjs/graphql';
 import {
-  IsArray,
   IsBoolean,
   IsEmail,
   IsEnum,
@@ -10,7 +9,7 @@ import {
   IsUUID,
   Length,
 } from 'class-validator';
-import { ValidRoles } from 'src/authentication/enums/valid-roles.enum';
+import { ValidRole } from 'src/authentication/enums/valid-role.enum';
 
 @InputType()
 export class UpdateAccount {
@@ -49,8 +48,8 @@ export class UpdateAccount {
   password?: string;
 
   @IsOptional()
-  @IsEnum(ValidRoles)
-  @Field(() => ValidRoles)
+  @IsEnum(ValidRole)
+  @Field(() => ValidRole)
   role?: string;
 
   @IsOptional()

@@ -25,7 +25,7 @@ import { DatabaseConfig } from './config/database.config';
         autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
         plugins: [ApolloServerPluginLandingPageLocalDefault()],
         // context({ req }) {
-        //   const token = req.headers.authorization?.replace('Barer', '');
+        //   const token = req.headers.authorization?.replace('Barer ', '');
         //   if (!token) throw Error('No token provided');
         //   const payload = jwtService.decode(token);
         //   if (!payload) throw Error('Invalid token');

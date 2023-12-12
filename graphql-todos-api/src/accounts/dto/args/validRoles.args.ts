@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
-import { ValidRoles } from 'src/authentication/enums/valid-roles.enum';
+import { ValidRole } from 'src/authentication/enums/valid-role.enum';
 
 export class ValidRolesArgs {
-  @Field(() => ValidRoles, { nullable: true })
-  role: ValidRoles;
+  @Field(() => ValidRole, { nullable: true })
+  role: ValidRole;
 }

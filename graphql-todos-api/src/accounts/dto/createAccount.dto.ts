@@ -7,7 +7,7 @@ import {
   IsString,
   Length,
 } from 'class-validator';
-import { ValidRoles } from 'src/authentication/enums/valid-roles.enum';
+import { ValidRole } from 'src/authentication/enums/valid-role.enum';
 
 @InputType()
 export class CreateAccount {
@@ -41,10 +41,10 @@ export class CreateAccount {
   password: string;
 
   @IsOptional()
-  @IsEnum(ValidRoles)
-  @Field(() => ValidRoles, {
-    defaultValue: ValidRoles.user,
+  @IsEnum(ValidRole)
+  @Field(() => ValidRole, {
+    defaultValue: ValidRole.user,
     nullable: true,
   })
-  role?: ValidRoles;
+  role?: ValidRole;
 }

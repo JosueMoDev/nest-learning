@@ -6,8 +6,8 @@ import { ParseUUIDPipe } from '@nestjs/common';
 @Resolver(() => Account)
 export class AccountsResolver {
   constructor(private readonly accountService: AccountsService) {}
-  @Query(() => Account, { name: 'FindById' })
-  findOneById(
+  @Query(() => Account, { name: 'findOneById' })
+  public async findOneById(
     @Args('id', { type: () => ID }, ParseUUIDPipe) id: string,
   ): Promise<Account> {
     return this.accountService.findOneById(id);
