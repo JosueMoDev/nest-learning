@@ -11,8 +11,11 @@ export class TodoService {
     @InjectRepository(Todo) private readonly todoRepository: Repository<Todo>,
   ) {}
 
-  public async findOneById(id: string): Promise<Todo> {
-    const todo = await this.todoRepository.findOneBy({ id: id });
+  public async findOneById(id: string, account: Account): Promise<Todo> {
+    const todo = await this.todoRepository.findOneBy({
+      id: id,
+      account: { id: account.id },
+    });
     if (!todo) throw new NotFoundException('Any Todo Found');
     return todo;
   }
