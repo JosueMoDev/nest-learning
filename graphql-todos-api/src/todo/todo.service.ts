@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { Todo } from './entities/todo.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Account } from 'src/accounts/entity/account.entity';
-import { CreateTodo } from './dto/create-todo.dto';
+import { CreateTodoInput } from './inputs/create-todo.input';
 
 @Injectable()
 export class TodoService {
@@ -30,7 +30,10 @@ export class TodoService {
     });
   }
 
-  public async create(createTodo: CreateTodo, account: Account): Promise<Todo> {
+  public async create(
+    createTodo: CreateTodoInput,
+    account: Account,
+  ): Promise<Todo> {
     const todo = this.todoRepository.create({ ...createTodo, account });
     return await this.todoRepository.save(todo);
   }

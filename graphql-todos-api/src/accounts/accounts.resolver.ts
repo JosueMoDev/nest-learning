@@ -2,7 +2,7 @@ import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Account } from './entity/account.entity';
 import { AccountsService } from './accounts.service';
 import { ParseUUIDPipe } from '@nestjs/common';
-import { UpdateAccount } from './dto';
+import { UpdateAccountInput } from './inputs';
 
 @Resolver(() => Account)
 export class AccountsResolver {
@@ -16,15 +16,17 @@ export class AccountsResolver {
 
   @Mutation(() => Account, { name: 'updateAccount' })
   public async updateAccount(
-    @Args('updateDto', { type: () => UpdateAccount }) dto: UpdateAccount,
+    @Args('updateInput', { type: () => UpdateAccountInput })
+    updateInput: UpdateAccountInput,
   ): Promise<Account> {
-    return await this.accountService.update(dto);
+    return await this.accountService.update(updateInput);
   }
 
   @Mutation(() => Account, { name: 'switchAccountActivation' })
   public async changeAccountStatus(
-    @Args('updateDto', { type: () => UpdateAccount }) dto: UpdateAccount,
+    @Args('updateInput', { type: () => UpdateAccountInput })
+    updateInput: UpdateAccountInput,
   ): Promise<void> {
-    return await this.accountService.accountStatus(dto);
+    return await this.accountService.accountStatus(updateInput);
   }
 }

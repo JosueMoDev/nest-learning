@@ -4,7 +4,7 @@ import { Todo } from './entities/todo.entity';
 import { TodoService } from './todo.service';
 import { CurrentAccount } from 'src/authentication/decorators/current-account.decorator';
 import { Account } from 'src/accounts/entity/account.entity';
-import { CreateTodo } from './dto/create-todo.dto';
+import { CreateTodoInput } from './inputs/create-todo.input';
 import { JwtAuthenticationGuard } from 'src/authentication/guards/jwt-authentication.guard';
 
 @Resolver(() => Todo)
@@ -25,9 +25,10 @@ export class TodoResolver {
 
   @Mutation(() => Todo, { name: 'createTodo' })
   public async createTodo(
-    @Args('todoDto', { type: () => CreateTodo }) dto: CreateTodo,
+    @Args('createTodoInput', { type: () => CreateTodoInput })
+    input: CreateTodoInput,
     @CurrentAccount() account: Account,
   ): Promise<Todo> {
-    return await this.todoService.create(dto, account);
+    return await this.todoService.create(input, account);
   }
 }

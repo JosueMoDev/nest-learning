@@ -7,9 +7,9 @@ import {
 } from '@nestjs/common';
 import { AccountAuthenticatedResponse } from './types/accountAuthenticatedResponse.type';
 import { AccountsService } from 'src/accounts/accounts.service';
-import { LoginDto } from './dtos/login.dto';
+import { LoginInput } from './inputs/login.input';
 import * as bcrypt from 'bcrypt';
-import { CreateAccount } from 'src/accounts/dto';
+import { CreateAccountInput } from 'src/accounts/inputs';
 import { Account } from 'src/accounts/entity/account.entity';
 import { JwtService } from '@nestjs/jwt';
 @Injectable()
@@ -23,10 +23,10 @@ export class AuthenticationService {
     return this.jwtService.sign({ id });
   }
 
-  async login(dto: LoginDto): Promise<AccountAuthenticatedResponse> {
-    const account = await this.accountService.findAccountByEmail(dto.email);
+  async login(input: LoginInput): Promise<AccountAuthenticatedResponse> {
+    const account = await this.accountService.findAccountByEmail(input.email);
     if (!account) throw new NotFoundException('No account found');
-    if (!bcrypt.compareSync(dto.password, account.password))
+    if (!bcrypt.compareSync(input.password, account.password))
       throw new BadRequestException('Incorrect credentials');
 
     const token = this.generateToken(account.id);
@@ -36,8 +36,10 @@ export class AuthenticationService {
     };
   }
 
-  async register(dto: CreateAccount): Promise<AccountAuthenticatedResponse> {
-    const account = await this.accountService.create(dto);
+  async register(
+    registerInput: CreateAccountInput,
+  ): Promise<AccountAuthenticatedResponse> {
+    const account = await this.accountService.create(registerInput);
     if (!account) throw new InternalServerErrorException('Something happend');
     const token = this.generateToken(account.id);
 

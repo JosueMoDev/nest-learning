@@ -35,19 +35,19 @@ type Query {
 }
 
 type Mutation {
-  login(loginInputs: LoginDto!): AccountAuthenticatedResponse!
-  register(registerInputs: CreateAccount!): AccountAuthenticatedResponse!
-  updateAccount(updateDto: UpdateAccount!): Account!
-  switchAccountActivation(updateDto: UpdateAccount!): Account!
-  createTodo(todoDto: CreateTodo!): Todo!
+  login(loginInput: LoginInput!): AccountAuthenticatedResponse!
+  register(registerInput: CreateAccountInput!): AccountAuthenticatedResponse!
+  updateAccount(updateInput: UpdateAccountInput!): Account!
+  switchAccountActivation(updateInput: UpdateAccountInput!): Account!
+  createTodo(createTodoInput: CreateTodoInput!): Todo!
 }
 
-input LoginDto {
+input LoginInput {
   email: String!
   password: String!
 }
 
-input CreateAccount {
+input CreateAccountInput {
   name: String!
   lastname: String!
   email: String!
@@ -61,7 +61,7 @@ enum ValidRole {
   superuser
 }
 
-input UpdateAccount {
+input UpdateAccountInput {
   id: ID!
   name: String!
   lastname: String!
@@ -71,7 +71,7 @@ input UpdateAccount {
   isActive: Boolean!
 }
 
-input CreateTodo {
+input CreateTodoInput {
   title: String!
   description: String!
 }

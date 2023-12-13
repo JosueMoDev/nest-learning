@@ -1,59 +1,50 @@
-import { Field, ID, InputType } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 import {
-  IsBoolean,
   IsEmail,
   IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsUUID,
   Length,
 } from 'class-validator';
 import { ValidRole } from 'src/authentication/enums/valid-role.enum';
 
 @InputType()
-export class UpdateAccount {
+export class CreateAccountInput {
   @IsNotEmpty()
-  @IsUUID()
-  @Field(() => ID)
-  id: string;
-
-  @IsOptional()
   @IsString()
   @Length(3, 25, {
     message: 'Name should be longer than 3 and shorter than 25',
   })
   @Field(() => String)
-  name?: string;
+  name: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   @Length(3, 25, {
     message: 'Lastname should be longer than 3 and shorter than 25',
   })
   @Field(() => String)
-  lastname?: string;
+  lastname: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsEmail()
   @Field(() => String)
-  email?: string;
+  email: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   @Length(8, 25, {
     message: 'Password should be longer than 8 and shorter than 25',
   })
   @Field(() => String)
-  password?: string;
+  password: string;
 
   @IsOptional()
   @IsEnum(ValidRole)
-  @Field(() => ValidRole)
-  role?: string;
-
-  @IsOptional()
-  @IsBoolean()
-  @Field(() => Boolean)
-  isActive: boolean;
+  @Field(() => ValidRole, {
+    defaultValue: ValidRole.user,
+    nullable: true,
+  })
+  role?: ValidRole;
 }

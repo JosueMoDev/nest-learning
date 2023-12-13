@@ -1,6 +1,6 @@
-import { CreateAccount } from 'src/accounts/dto';
+import { CreateAccountInput } from 'src/accounts/inputs';
 import { AuthenticationService } from './authentication.service';
-import { LoginDto } from './dtos/login.dto';
+import { LoginInput } from './inputs/login.input';
 import { AccountAuthenticatedResponse } from './types/accountAuthenticatedResponse.type';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 
@@ -10,15 +10,15 @@ export class AuthenticationResolver {
 
   @Mutation(() => AccountAuthenticatedResponse, { name: 'login' })
   async login(
-    @Args('loginInputs') loginDto: LoginDto,
+    @Args('loginInput') loginInput: LoginInput,
   ): Promise<AccountAuthenticatedResponse> {
-    return this.authenticationService.login(loginDto);
+    return this.authenticationService.login(loginInput);
   }
 
   @Mutation(() => AccountAuthenticatedResponse, { name: 'register' })
   async register(
-    @Args('registerInputs') registerDto: CreateAccount,
+    @Args('registerInput') registerInput: CreateAccountInput,
   ): Promise<AccountAuthenticatedResponse> {
-    return this.authenticationService.register(registerDto);
+    return this.authenticationService.register(registerInput);
   }
 }

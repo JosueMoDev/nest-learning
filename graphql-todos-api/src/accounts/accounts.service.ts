@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAccount, UpdateAccount } from './dto';
+import { CreateAccountInput, UpdateAccountInput } from './inputs';
 import { Account } from './entity/account.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -35,7 +35,7 @@ export class AccountsService {
     }
   }
 
-  public async create(dto: CreateAccount): Promise<Account> {
+  public async create(dto: CreateAccountInput): Promise<Account> {
     try {
       const newAccount = this.accountRespository.create(dto);
       newAccount.password = bcrypt.hashSync(dto.password, 10);
@@ -45,7 +45,7 @@ export class AccountsService {
       throw new Error(`${error}`);
     }
   }
-  public async update(dto: UpdateAccount): Promise<Account> {
+  public async update(dto: UpdateAccountInput): Promise<Account> {
     try {
       const account = await this.accountRespository.preload(dto);
       return await this.accountRespository.save(account);
@@ -54,7 +54,7 @@ export class AccountsService {
     }
   }
 
-  public async accountStatus(dto: UpdateAccount): Promise<void> {
+  public async accountStatus(dto: UpdateAccountInput): Promise<void> {
     try {
       const account = await this.findOneById(dto.id);
       account.isActive = !account.isActive;
