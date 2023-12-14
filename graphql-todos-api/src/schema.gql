@@ -7,7 +7,7 @@ type Todo {
   title: String!
   description: String!
   state: String!
-  createdAt: String!
+  createdAt: Date!
   account: Account!
 }
 
@@ -27,6 +27,9 @@ type AccountAuthenticatedResponse {
   token: String!
   account: Account!
 }
+
+"""Date custom scalar type"""
+scalar Date
 
 type Query {
   findOneById(id: ID!): Account!

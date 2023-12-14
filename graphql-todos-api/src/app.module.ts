@@ -21,6 +21,9 @@ import { DatabaseConfig } from './config/database.config';
       imports: [AuthenticationModule],
       inject: [JwtService],
       useFactory: async () => ({
+        buildSchemaOptions: {
+          dateScalarMode: 'isoDate',
+        },
         playground: false,
         autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
         plugins: [ApolloServerPluginLandingPageLocalDefault()],
