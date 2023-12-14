@@ -34,6 +34,6 @@ export class UpdateTodoInput {
 
   @IsOptional()
   @IsEnum(TodoState)
-  @Field(() => TodoState)
-  state: string;
+  @Field(() => TodoState, { nullable: true })
+  state?: string;
 }
