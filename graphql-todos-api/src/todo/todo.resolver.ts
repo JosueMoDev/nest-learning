@@ -6,6 +6,8 @@ import { CurrentAccount } from 'src/authentication/decorators/current-account.de
 import { Account } from 'src/accounts/entity/account.entity';
 import { CreateTodoInput } from './inputs/create-todo.input';
 import { JwtAuthenticationGuard } from 'src/authentication/guards/jwt-authentication.guard';
+import { UpdateTodoInput } from './inputs/update-todo.input';
+import { ChangeTodoState } from './inputs/change-todo-state.input';
 
 @Resolver(() => Todo)
 @UseGuards(JwtAuthenticationGuard)
@@ -25,10 +27,28 @@ export class TodoResolver {
 
   @Mutation(() => Todo, { name: 'createTodo' })
   public async createTodo(
+    @CurrentAccount() account: Account,
     @Args('createTodoInput', { type: () => CreateTodoInput })
     input: CreateTodoInput,
-    @CurrentAccount() account: Account,
   ): Promise<Todo> {
     return await this.todoService.create(input, account);
+  }
+
+  @Mutation(() => Todo, { name: 'updateTodo' })
+  public async updateTodo(
+    @CurrentAccount() account: Account,
+    @Args('updateTodoInput', { type: () => UpdateTodoInput })
+    input: UpdateTodoInput,
+  ): Promise<Todo> {
+    return await this.todoService.update(input, account);
+  }
+
+  @Mutation(() => Todo, { name: 'changeStateTodo' })
+  public async changeState(
+    @CurrentAccount() account: Account,
+    @Args('changeTodoState', { type: () => ChangeTodoState })
+    input: ChangeTodoState,
+  ): Promise<Todo> {
+    return await this.todoService.changeState(input, account);
   }
 }

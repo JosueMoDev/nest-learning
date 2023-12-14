@@ -46,5 +46,5 @@ export class CreateAccountInput {
     defaultValue: ValidRole.user,
     nullable: true,
   })
-  role?: ValidRole;
+  role?: string;
 }

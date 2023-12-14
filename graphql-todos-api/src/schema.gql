@@ -43,6 +43,7 @@ type Mutation {
   updateAccount(updateInput: UpdateAccountInput!): Account!
   switchAccountActivation(updateInput: UpdateAccountInput!): Account!
   createTodo(createTodoInput: CreateTodoInput!): Todo!
+  updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
 }
 
 input LoginInput {
@@ -77,4 +78,17 @@ input UpdateAccountInput {
 input CreateTodoInput {
   title: String!
   description: String!
+}
+
+input UpdateTodoInput {
+  id: ID!
+  title: String!
+  description: String!
+  state: TodoState!
+}
+
+enum TodoState {
+  done
+  pending
+  inpause
 }
