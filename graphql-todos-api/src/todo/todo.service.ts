@@ -16,7 +16,7 @@ export class TodoService {
   public async findOneById(id: string, account: Account): Promise<Todo> {
     const todo = await this.todoRepository.findOneBy({
       id: id,
-      account: { id: account.id },
+      createdBy: { id: account.id },
     });
     if (!todo) throw new NotFoundException('Any Todo Found');
     return todo;
@@ -25,7 +25,7 @@ export class TodoService {
   public async findMany(account: Account): Promise<Todo[]> {
     return await this.todoRepository.find({
       where: {
-        account: {
+        createdBy: {
           id: account.id,
         },
       },
@@ -33,7 +33,7 @@ export class TodoService {
   }
 
   public async create(input: CreateTodoInput, account: Account): Promise<Todo> {
-    const todo = this.todoRepository.create({ ...input, account });
+    const todo = this.todoRepository.create({ ...input, createdBy: account });
     return await this.todoRepository.save(todo);
   }
 

@@ -35,28 +35,28 @@ export class AccountsService {
     }
   }
 
-  public async create(dto: CreateAccountInput): Promise<Account> {
+  public async create(input: CreateAccountInput): Promise<Account> {
     try {
-      const newAccount = this.accountRespository.create(dto);
-      newAccount.password = bcrypt.hashSync(dto.password, 10);
+      const newAccount = this.accountRespository.create(input);
+      newAccount.password = bcrypt.hashSync(input.password, 10);
       const accountSaved = await this.accountRespository.save(newAccount);
       return accountSaved;
     } catch (error) {
       throw new Error(`${error}`);
     }
   }
-  public async update(dto: UpdateAccountInput): Promise<Account> {
+  public async update(input: UpdateAccountInput): Promise<Account> {
     try {
-      const account = await this.accountRespository.preload(dto);
+      const account = await this.accountRespository.preload(input);
       return await this.accountRespository.save(account);
     } catch (error) {
       throw new Error(`${error}`);
     }
   }
 
-  public async accountStatus(dto: UpdateAccountInput): Promise<void> {
+  public async accountStatus(input: UpdateAccountInput): Promise<void> {
     try {
-      const account = await this.findOneById(dto.id);
+      const account = await this.findOneById(input.id);
       account.isActive = !account.isActive;
       const accountStatus = await this.accountRespository.preload(account);
       this.accountRespository.save(accountStatus);

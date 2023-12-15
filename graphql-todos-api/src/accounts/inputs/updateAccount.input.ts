@@ -23,7 +23,7 @@ export class UpdateAccountInput {
   @Length(3, 25, {
     message: 'Name should be longer than 3 and shorter than 25',
   })
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   name?: string;
 
   @IsOptional()
@@ -31,12 +31,12 @@ export class UpdateAccountInput {
   @Length(3, 25, {
     message: 'Lastname should be longer than 3 and shorter than 25',
   })
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   lastname?: string;
 
   @IsOptional()
   @IsEmail()
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   email?: string;
 
   @IsOptional()
@@ -44,16 +44,16 @@ export class UpdateAccountInput {
   @Length(8, 25, {
     message: 'Password should be longer than 8 and shorter than 25',
   })
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   password?: string;
 
   @IsOptional()
   @IsEnum(ValidRole)
-  @Field(() => ValidRole)
+  @Field(() => ValidRole, { nullable: true })
   role?: string;
 
   @IsOptional()
   @IsBoolean()
-  @Field(() => Boolean)
+  @Field(() => Boolean, { nullable: true })
   isActive: boolean;
 }

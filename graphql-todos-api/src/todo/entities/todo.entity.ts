@@ -45,5 +45,5 @@ export class Todo {
   })
   @Index('account-index')
   @Field(() => Account)
-  account: Account;
+  createdBy: Account;
 }

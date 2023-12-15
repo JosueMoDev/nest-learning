@@ -8,7 +8,7 @@ type Todo {
   description: String!
   state: String!
   createdAt: Date!
-  account: Account!
+  createdBy: Account!
 }
 
 type Account {
@@ -68,12 +68,12 @@ enum ValidRole {
 
 input UpdateAccountInput {
   id: ID!
-  name: String!
-  lastname: String!
-  email: String!
-  password: String!
-  role: ValidRole!
-  isActive: Boolean!
+  name: String
+  lastname: String
+  email: String
+  password: String
+  role: ValidRole
+  isActive: Boolean
 }
 
 input CreateTodoInput {
@@ -83,8 +83,8 @@ input CreateTodoInput {
 
 input UpdateTodoInput {
   id: ID!
-  title: String!
-  description: String!
+  title: String
+  description: String
   state: TodoState
 }
 

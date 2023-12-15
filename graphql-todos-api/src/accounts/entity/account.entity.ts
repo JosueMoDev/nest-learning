@@ -50,9 +50,9 @@ export class Account {
   })
   @JoinColumn({ name: 'lastUpdatedBy' })
   @Field(() => Account, { nullable: true })
-  lastUpdatedBy?: Account;
+  lastUpdatedBy?: string;
 
-  @OneToMany(() => Todo, (todo) => todo.account, { lazy: true })
+  @OneToMany(() => Todo, (todo) => todo.createdBy, { lazy: true })
   @Field(() => [Todo])
   todos: Todo[];
 }

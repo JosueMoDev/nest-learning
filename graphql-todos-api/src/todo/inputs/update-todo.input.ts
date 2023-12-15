@@ -21,7 +21,7 @@ export class UpdateTodoInput {
   @Length(3, 25, {
     message: 'title should be longer than 3 and shorter than 25',
   })
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   title: string;
 
   @IsOptional()
@@ -29,7 +29,7 @@ export class UpdateTodoInput {
   @Length(10, 100, {
     message: 'Lastname should be longer than 3 and shorter than 25',
   })
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   description: string;
 
   @IsOptional()
