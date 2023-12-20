@@ -10,6 +10,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { AccountsModule } from './accounts/accounts.module';
 import { TodoModule } from './todo/todo.module';
 import { DatabaseConfig } from './config/database.config';
+import { SeedModule } from './seed/seed.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -39,6 +40,8 @@ import { DatabaseConfig } from './config/database.config';
     TodoModule,
     AccountsModule,
     AuthenticationModule,
+    SeedModule,
+    SeedModule,
   ],
   controllers: [],
   providers: [],

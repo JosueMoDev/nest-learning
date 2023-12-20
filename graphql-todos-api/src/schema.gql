@@ -45,6 +45,9 @@ type Mutation {
   createTodo(createTodoInput: CreateTodoInput!): Todo!
   updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
   changeStateTodo(changeTodoState: ChangeTodoState!): Todo!
+
+  """Execute Seed Data"""
+  DataSeeder: String!
 }
 
 input LoginInput {
