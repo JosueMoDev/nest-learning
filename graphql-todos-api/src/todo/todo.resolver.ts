@@ -8,6 +8,7 @@ import { CreateTodoInput } from './inputs/create-todo.input';
 import { JwtAuthenticationGuard } from 'src/authentication/guards/jwt-authentication.guard';
 import { UpdateTodoInput } from './inputs/update-todo.input';
 import { ChangeTodoState } from './inputs/change-todo-state.input';
+import { PaginationArgs, SearchArgs } from 'src/common/dto';
 
 @Resolver(() => Todo)
 @UseGuards(JwtAuthenticationGuard)
@@ -21,8 +22,12 @@ export class TodoResolver {
     return await this.todoService.findOneById(id, account);
   }
   @Query(() => [Todo], { name: 'findMany' })
-  public async findMany(@CurrentAccount() account: Account): Promise<Todo[]> {
-    return await this.todoService.findMany(account);
+  public async findMany(
+    @CurrentAccount() account: Account,
+    @Args() paginationArgs: PaginationArgs,
+    @Args() searchArgs: SearchArgs,
+  ): Promise<Todo[]> {
+    return await this.todoService.findMany(account, paginationArgs, searchArgs);
   }
 
   @Mutation(() => Todo, { name: 'createTodo' })

@@ -45,4 +45,52 @@ export const SEED_TODOS = [
     title: 'Study SwiftUi',
     description: 'Its necessary to get a job',
   },
+  {
+    title: 'Study Next 14',
+    description: 'Its necessary to get a job',
+  },
+  {
+    title: 'Study Angular',
+    description: 'Its necessary to get a job',
+  },
+  {
+    title: 'Study UIKit',
+    description: 'Its necessary to get a job',
+  },
+  {
+    title: 'Study Flutter',
+    description: 'Its necessary to get a job',
+  },
+  {
+    title: 'Study Jetpack Compose',
+    description: 'Its necessary to get a job',
+  },
+  {
+    title: 'Study GaphQl',
+    description: 'Its necessary to get a job',
+  },
+  {
+    title: 'Study TypeScript',
+    description: 'Its necessary to get a job',
+  },
+  {
+    title: 'Study AWS',
+    description: 'Its necessary to get a job',
+  },
+  {
+    title: 'Study Kotlin',
+    description: 'Its necessary to get a job',
+  },
+  {
+    title: 'Study Java',
+    description: 'Its necessary to get a job',
+  },
+  {
+    title: 'Study Dart',
+    description: 'Its necessary to get a job',
+  },
+  {
+    title: 'Study Spring boot with kotlin',
+    description: 'Its necessary to get a job',
+  },
 ];

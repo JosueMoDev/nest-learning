@@ -34,7 +34,7 @@ scalar Date
 type Query {
   findOneById(id: ID!): Account!
   findOneBy(id: ID!): Todo!
-  findMany: [Todo!]!
+  findMany(offset: Int = 0, limit: Int = 10, search: String): [Todo!]!
 }
 
 type Mutation {

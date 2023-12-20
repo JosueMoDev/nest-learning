@@ -11,6 +11,7 @@ import { AccountsModule } from './accounts/accounts.module';
 import { TodoModule } from './todo/todo.module';
 import { DatabaseConfig } from './config/database.config';
 import { SeedModule } from './seed/seed.module';
+import { CommonModule } from './common/common.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -28,7 +29,7 @@ import { SeedModule } from './seed/seed.module';
         playground: false,
         autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
         plugins: [ApolloServerPluginLandingPageLocalDefault()],
-        context({ req }) {
+        context() {
           // const token = req.headers.authorization?.replace('Barer ', '');
           // if (!token) throw Error('No token provided');
           // const payload = jwtService.decode(token);
@@ -41,7 +42,7 @@ import { SeedModule } from './seed/seed.module';
     AccountsModule,
     AuthenticationModule,
     SeedModule,
-    SeedModule,
+    CommonModule,
   ],
   controllers: [],
   providers: [],

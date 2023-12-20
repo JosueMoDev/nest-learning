@@ -6,6 +6,7 @@ import { Account } from 'src/accounts/entity/account.entity';
 import { CreateTodoInput } from './inputs/create-todo.input';
 import { UpdateTodoInput } from './inputs/update-todo.input';
 import { ChangeTodoState } from './inputs/change-todo-state.input';
+import { PaginationArgs, SearchArgs } from 'src/common/dto';
 
 @Injectable()
 export class TodoService {
@@ -22,14 +23,26 @@ export class TodoService {
     return todo;
   }
 
-  public async findMany(account: Account): Promise<Todo[]> {
-    return await this.todoRepository.find({
-      where: {
-        createdBy: {
-          id: account.id,
-        },
-      },
-    });
+  public async findMany(
+    account: Account,
+    paginationArgs: PaginationArgs,
+    searchArgs: SearchArgs,
+  ): Promise<Todo[]> {
+    const { limit, offset } = paginationArgs;
+    const { search } = searchArgs;
+    const queryBuilder = this.todoRepository
+      .createQueryBuilder()
+      .take(limit)
+      .skip(offset)
+      .where(`"createdById" = :createdById`, { createdById: account.id });
+
+    if (search) {
+      queryBuilder.andWhere('LOWER(title) like :title', {
+        title: `%${search.toLowerCase()}%`,
+      });
+    }
+
+    return queryBuilder.getMany();
   }
 
   public async create(input: CreateTodoInput, account: Account): Promise<Todo> {
