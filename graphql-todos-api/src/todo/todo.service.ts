@@ -67,4 +67,14 @@ export class TodoService {
     todo.state = input.state;
     return await this.todoRepository.save(todo);
   }
+
+  public async todoCount(account: Account): Promise<number> {
+    return await this.todoRepository.count({
+      where: {
+        createdBy: {
+          id: account.id,
+        },
+      },
+    });
+  }
 }

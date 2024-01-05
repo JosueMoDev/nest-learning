@@ -1,6 +1,7 @@
 import {
   Args,
   ID,
+  Int,
   Mutation,
   Parent,
   Query,
@@ -66,12 +67,22 @@ export class AccountsResolver {
     return this.listService.findMany(account, pagination, search);
   }
 
-  @ResolveField(() => List, { name: 'todos' })
+  @ResolveField(() => [Todo], { name: 'todos' })
   async getTodosByAccount(
-    @CurrentAccount(ValidRole.admin) account: Account,
+    @CurrentAccount(ValidRole.admin) accountAdmin: Account,
+    @Parent() account: Account,
     @Args() pagination: PaginationArgs,
     @Args() search: SearchArgs,
   ): Promise<Todo[]> {
     return this.todoservice.findMany(account, pagination, search);
+  }
+
+  @ResolveField(() => Int, { name: 'todosCount' })
+  async getTodosCount(@Parent() account: Account): Promise<number> {
+    return this.todoservice.todoCount(account);
+  }
+  @ResolveField(() => Int, { name: 'listsCount' })
+  async getListsCount(@Parent() account: Account): Promise<number> {
+    return this.listService.listCount(account);
   }
 }

@@ -26,8 +26,10 @@ type Account {
   role: String!
   isActive: Boolean!
   lastUpdatedBy: Account
-  todos(offset: Int = 0, limit: Int = 10, search: String): List!
+  todos(offset: Int = 0, limit: Int = 10, search: String): [Todo!]!
   lists(offset: Int = 0, limit: Int = 10, search: String): [List!]!
+  todosCount: Int!
+  listsCount: Int!
 }
 
 type AccountAuthenticatedResponse {
