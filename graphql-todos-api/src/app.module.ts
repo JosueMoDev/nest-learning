@@ -12,6 +12,7 @@ import { TodoModule } from './todo/todo.module';
 import { DatabaseConfig } from './config/database.config';
 import { SeedModule } from './seed/seed.module';
 import { CommonModule } from './common/common.module';
+import { ListsModule } from './lists/lists.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -43,6 +44,7 @@ import { CommonModule } from './common/common.module';
     AuthenticationModule,
     SeedModule,
     CommonModule,
+    ListsModule,
   ],
   controllers: [],
   providers: [],

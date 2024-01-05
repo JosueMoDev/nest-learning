@@ -1,4 +1,4 @@
-import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Account } from 'src/accounts/entity/account.entity';
 import {
   Column,
@@ -8,7 +8,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TodoState } from '../enums/todoState.enum';
-import { DateScalar } from 'src/config/scalars/date.scalar';
 
 @Entity({ name: 'todos ' })
 @ObjectType()

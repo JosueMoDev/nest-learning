@@ -12,11 +12,7 @@ export class AccountsService {
     private readonly accountRespository: Repository<Account>,
   ) {}
   public async findMany(): Promise<Account[]> {
-    try {
-      return this.accountRespository.find();
-    } catch (error) {
-      throw new Error(`${error}`);
-    }
+    return this.accountRespository.find();
   }
 
   public async findAccountByEmail(email: string): Promise<Account> {

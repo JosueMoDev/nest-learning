@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { List } from 'src/lists/entities/list.entity';
 import { Todo } from 'src/todo/entities/todo.entity';
 import {
   Column,
@@ -55,4 +56,7 @@ export class Account {
   @OneToMany(() => Todo, (todo) => todo.createdBy, { lazy: true })
   @Field(() => [Todo])
   todos: Todo[];
+
+  @OneToMany(() => List, (list) => list.account, { nullable: true })
+  lists: List[];
 }

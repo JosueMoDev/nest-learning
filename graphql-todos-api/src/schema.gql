@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type List {
+  id: ID!
+  name: String!
+  account: Account!
+}
+
 type Todo {
   id: ID!
   title: String!
@@ -20,7 +26,8 @@ type Account {
   role: String!
   isActive: Boolean!
   lastUpdatedBy: Account
-  todos: [Todo!]!
+  todos(offset: Int = 0, limit: Int = 10, search: String): List!
+  lists(offset: Int = 0, limit: Int = 10, search: String): [List!]!
 }
 
 type AccountAuthenticatedResponse {
@@ -33,8 +40,11 @@ scalar Date
 
 type Query {
   findOneById(id: ID!): Account!
+  findManyAccout: [Account!]!
   findOneBy(id: ID!): Todo!
   findMany(offset: Int = 0, limit: Int = 10, search: String): [Todo!]!
+  lists(offset: Int = 0, limit: Int = 10, search: String): [List!]!
+  list(id: ID!): List!
 }
 
 type Mutation {
@@ -45,6 +55,9 @@ type Mutation {
   createTodo(createTodoInput: CreateTodoInput!): Todo!
   updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
   changeStateTodo(changeTodoState: ChangeTodoState!): Todo!
+  createList(createListInput: CreateListInput!): List!
+  updateList(updateListInput: UpdateListInput!): List!
+  removeList(id: ID!): List!
 
   """Execute Seed Data"""
   DataSeeder: String!
@@ -100,4 +113,13 @@ enum TodoState {
 input ChangeTodoState {
   id: ID!
   state: TodoState!
+}
+
+input CreateListInput {
+  name: String!
+}
+
+input UpdateListInput {
+  name: String
+  id: ID!
 }
