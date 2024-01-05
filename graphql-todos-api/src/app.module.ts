@@ -13,6 +13,7 @@ import { DatabaseConfig } from './config/database.config';
 import { SeedModule } from './seed/seed.module';
 import { CommonModule } from './common/common.module';
 import { ListsModule } from './lists/lists.module';
+import { ListTodosModule } from './list-todos/list-todos.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -45,6 +46,7 @@ import { ListsModule } from './lists/lists.module';
     SeedModule,
     CommonModule,
     ListsModule,
+    ListTodosModule,
   ],
   controllers: [],
   providers: [],

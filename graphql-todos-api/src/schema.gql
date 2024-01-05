@@ -2,12 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type List {
-  id: ID!
-  name: String!
-  account: Account!
-}
-
 type Todo {
   id: ID!
   title: String!
@@ -15,6 +9,22 @@ type Todo {
   state: String!
   createdAt: Date!
   createdBy: Account!
+  listTodo: [ListTodo!]!
+}
+
+type ListTodo {
+  id: ID!
+  quantity: Int!
+  completed: Boolean!
+  list: List!
+  todo: Todo!
+}
+
+type List {
+  id: ID!
+  name: String!
+  account: Account!
+  listTodo: ListTodo!
 }
 
 type Account {
@@ -47,6 +57,8 @@ type Query {
   findMany(offset: Int = 0, limit: Int = 10, search: String): [Todo!]!
   lists(offset: Int = 0, limit: Int = 10, search: String): [List!]!
   list(id: ID!): List!
+  listTodos: [ListTodo!]!
+  listTodo(id: Int!): ListTodo!
 }
 
 type Mutation {
@@ -63,6 +75,9 @@ type Mutation {
 
   """Execute Seed Data"""
   DataSeeder: String!
+  createListTodo(createListTodoInput: CreateListTodoInput!): ListTodo!
+  updateListTodo(updateListTodoInput: UpdateListTodoInput!): ListTodo!
+  removeListTodo(id: Int!): ListTodo!
 }
 
 input LoginInput {
@@ -124,4 +139,15 @@ input CreateListInput {
 input UpdateListInput {
   name: String
   id: ID!
+}
+
+input CreateListTodoInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateListTodoInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
