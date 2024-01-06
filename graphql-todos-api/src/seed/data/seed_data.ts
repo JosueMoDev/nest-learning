@@ -94,3 +94,9 @@ export const SEED_TODOS = [
     description: 'Its necessary to get a job',
   },
 ];
+
+export const SEED_LISTS = [
+  { name: 'Courses i want to buy' },
+  { name: 'Currently learning' },
+  { name: 'The most helpfull courses' },
+];

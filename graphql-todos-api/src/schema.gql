@@ -25,6 +25,8 @@ type List {
   name: String!
   account: Account!
   listTodo: ListTodo!
+  todos(offset: Int = 0, limit: Int = 10, search: String): [ListTodo!]!
+  listTodoCount: Int!
 }
 
 type Account {
@@ -57,8 +59,7 @@ type Query {
   findMany(offset: Int = 0, limit: Int = 10, search: String): [Todo!]!
   lists(offset: Int = 0, limit: Int = 10, search: String): [List!]!
   list(id: ID!): List!
-  listTodos: [ListTodo!]!
-  listTodo(id: Int!): ListTodo!
+  listTodo(id: ID!): ListTodo!
 }
 
 type Mutation {
@@ -72,12 +73,12 @@ type Mutation {
   createList(createListInput: CreateListInput!): List!
   updateList(updateListInput: UpdateListInput!): List!
   removeList(id: ID!): List!
+  createListTodo(createListTodoInput: CreateListTodoInput!): ListTodo!
+  updateListTodo(updateListTodoInput: UpdateListTodoInput!): ListTodo!
+  removeListTodo(id: ID!): ListTodo!
 
   """Execute Seed Data"""
   DataSeeder: String!
-  createListTodo(createListTodoInput: CreateListTodoInput!): ListTodo!
-  updateListTodo(updateListTodoInput: UpdateListTodoInput!): ListTodo!
-  removeListTodo(id: Int!): ListTodo!
 }
 
 input LoginInput {
@@ -142,12 +143,16 @@ input UpdateListInput {
 }
 
 input CreateListTodoInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  quantity: Int
+  completed: Boolean
+  listId: ID!
+  todoId: ID!
 }
 
 input UpdateListTodoInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  quantity: Int
+  completed: Boolean
+  listId: ID
+  todoId: ID
+  id: ID!
 }

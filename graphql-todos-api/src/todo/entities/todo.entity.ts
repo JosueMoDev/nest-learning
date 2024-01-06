@@ -9,7 +9,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TodoState } from '../enums/todoState.enum';
-import { List } from 'src/lists/entities/list.entity';
 import { ListTodo } from 'src/list-todos/entities/list-todo.entity';
 
 @Entity({ name: 'todos ' })

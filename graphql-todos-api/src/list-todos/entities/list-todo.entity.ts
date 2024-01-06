@@ -9,7 +9,7 @@ import {
   Unique,
 } from 'typeorm';
 @Entity('listTodo')
-@Unique('listTodo-todo', ['todo', 'list'])
+@Unique('listTodo-todo', ['list', 'todo'])
 @ObjectType()
 export class ListTodo {
   @PrimaryGeneratedColumn('uuid')
