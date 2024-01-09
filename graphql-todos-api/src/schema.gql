@@ -1,0 +1,158 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Todo {
+  id: ID!
+  title: String!
+  description: String!
+  state: String!
+  createdAt: Date!
+  createdBy: Account!
+  listTodo: [ListTodo!]!
+}
+
+type ListTodo {
+  id: ID!
+  quantity: Int!
+  completed: Boolean!
+  list: List!
+  todo: Todo!
+}
+
+type List {
+  id: ID!
+  name: String!
+  account: Account!
+  listTodo: ListTodo!
+  todos(offset: Int = 0, limit: Int = 10, search: String): [ListTodo!]!
+  listTodoCount: Int!
+}
+
+type Account {
+  id: ID!
+  name: String!
+  lastname: String!
+  email: String!
+  password: String!
+  role: String!
+  isActive: Boolean!
+  lastUpdatedBy: Account
+  todos(offset: Int = 0, limit: Int = 10, search: String): [Todo!]!
+  lists(offset: Int = 0, limit: Int = 10, search: String): [List!]!
+  todosCount: Int!
+  listsCount: Int!
+}
+
+type AccountAuthenticatedResponse {
+  token: String!
+  account: Account!
+}
+
+"""Date custom scalar type"""
+scalar Date
+
+type Query {
+  findOneById(id: ID!): Account!
+  findManyAccout: [Account!]!
+  findOneBy(id: ID!): Todo!
+  findMany(offset: Int = 0, limit: Int = 10, search: String): [Todo!]!
+  lists(offset: Int = 0, limit: Int = 10, search: String): [List!]!
+  list(id: ID!): List!
+  listTodo(id: ID!): ListTodo!
+}
+
+type Mutation {
+  login(loginInput: LoginInput!): AccountAuthenticatedResponse!
+  register(registerInput: CreateAccountInput!): AccountAuthenticatedResponse!
+  updateAccount(updateInput: UpdateAccountInput!): Account!
+  switchAccountActivation(updateInput: UpdateAccountInput!): Account!
+  createTodo(createTodoInput: CreateTodoInput!): Todo!
+  updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
+  changeStateTodo(changeTodoState: ChangeTodoState!): Todo!
+  createList(createListInput: CreateListInput!): List!
+  updateList(updateListInput: UpdateListInput!): List!
+  removeList(id: ID!): List!
+  createListTodo(createListTodoInput: CreateListTodoInput!): ListTodo!
+  updateListTodo(updateListTodoInput: UpdateListTodoInput!): ListTodo!
+  removeListTodo(id: ID!): ListTodo!
+
+  """Execute Seed Data"""
+  DataSeeder: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input CreateAccountInput {
+  name: String!
+  lastname: String!
+  email: String!
+  password: String!
+  role: ValidRole = user
+}
+
+enum ValidRole {
+  admin
+  user
+  superuser
+}
+
+input UpdateAccountInput {
+  id: ID!
+  name: String
+  lastname: String
+  email: String
+  password: String
+  role: ValidRole
+  isActive: Boolean
+}
+
+input CreateTodoInput {
+  title: String!
+  description: String!
+}
+
+input UpdateTodoInput {
+  id: ID!
+  title: String
+  description: String
+  state: TodoState
+}
+
+enum TodoState {
+  done
+  pending
+  inpause
+}
+
+input ChangeTodoState {
+  id: ID!
+  state: TodoState!
+}
+
+input CreateListInput {
+  name: String!
+}
+
+input UpdateListInput {
+  name: String
+  id: ID!
+}
+
+input CreateListTodoInput {
+  quantity: Int
+  completed: Boolean
+  listId: ID!
+  todoId: ID!
+}
+
+input UpdateListTodoInput {
+  quantity: Int
+  completed: Boolean
+  listId: ID
+  todoId: ID
+  id: ID!
+}
